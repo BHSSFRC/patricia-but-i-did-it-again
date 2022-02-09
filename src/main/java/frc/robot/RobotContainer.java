@@ -9,16 +9,17 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class RobotContainer {
-	private final DriveTrain driveTrain = new DriveTrain();
-	private final Magazine magazine = new Magazine();
-	private final Shooter shooter = new Shooter();
+	//private final DriveTrain driveTrain = new DriveTrain();
+	//private final Magazine magazine = new Magazine();
+	//private final Shooter shooter = new Shooter();
 
-	private final Drive driveCommand = new Drive(driveTrain, magazine, shooter);
-
+	//private final Drive driveCommand = new Drive(driveTrain, magazine, shooter);
+	public final Vision vision = new Vision();
 	public RobotContainer() {
 		OI.getInstance();
 
@@ -37,9 +38,9 @@ public class RobotContainer {
             }
         }
 		
-		CommandScheduler.getInstance().setDefaultCommand(driveTrain, driveCommand);
-		CommandScheduler.getInstance().setDefaultCommand(magazine, driveCommand);
-		CommandScheduler.getInstance().setDefaultCommand(shooter, driveCommand);
+		//CommandScheduler.getInstance().setDefaultCommand(driveTrain, driveCommand);
+		//CommandScheduler.getInstance().setDefaultCommand(magazine, driveCommand);
+		//CommandScheduler.getInstance().setDefaultCommand(shooter, driveCommand);
 
 		//driveCommand.schedule();
 
