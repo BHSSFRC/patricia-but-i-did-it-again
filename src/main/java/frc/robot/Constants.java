@@ -1,9 +1,9 @@
 package frc.robot;
 
 public final class Constants {
-    public final static double CameraHeightInches = 30;
+    public final static double CameraHeightInches = 38.5;
     public final static double TargetHeightInches = 50;
-    public final static double CameraPitchRadians = 1;
+    public final static double CameraPitchRadians = -0.2;
     public final static String CameraName = "USB_Camera";
 
     public final static double AngularD = 0.0;

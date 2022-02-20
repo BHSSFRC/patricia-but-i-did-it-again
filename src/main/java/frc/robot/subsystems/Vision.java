@@ -2,12 +2,15 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+//import edu.wpi.first.wpilibj.util.Units;
+//import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Talon;
 import org.photonvision.PhotonCamera;
-import frc.robot.Constants;
+import org.photonvision.PhotonUtils;
+
 /*
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -24,9 +27,10 @@ public class Vision extends SubsystemBase {
     Talon turretMotor;
     XboxController controller;
     double rotationSpeed;
+    double range;
     private Talon leftMotor;
 	private Talon rightMotor;
-    //PIDController rotationController;
+    //DifferentialDrive drive;    //PIDController rotationController;
     public Vision(){
 
         this.camera = new PhotonCamera(Constants.CameraName);
@@ -36,6 +40,7 @@ public class Vision extends SubsystemBase {
 
         this.controller = new XboxController(Constants.Controller1Port);
         this.leftMotor.setInverted(true);
+        //drive = new DifferentialDrive(leftMotor, rightMotor);
         //rotationController = new PIDController(constants.AngularP, 0, constants.AngularD);
 
     }
@@ -45,13 +50,21 @@ public class Vision extends SubsystemBase {
         var result = camera.getLatestResult();
         if(result.hasTargets()){
             rotationSpeed = result.getBestTarget().getYaw();
+            range =
+                        PhotonUtils.calculateDistanceToTargetMeters(
+                                Constants.CameraHeightInches* 0.0254,//CAMERA_HEIGHT_METERS,
+                                Constants.CameraHeightInches * 0.0254,
+                                Constants.CameraPitchRadians,
+                                result.getBestTarget().getPitch()*3.14159/180);
         }
         else{       
             rotationSpeed = 0;
         }
         System.out.println(rotationSpeed/50);
-        this.leftMotor.set(-rotationSpeed/50);
-		this.rightMotor.set(rotationSpeed/50);
+        //double rangeSpeed = range/10 < 0.5? range/10: 0.5;
+        leftMotor.set(-rotationSpeed/35);
+        rightMotor.set(rotationSpeed/35);
+        //drive.arcadeDrive(range/10, rotationSpeed/40);
 
     }
 }
